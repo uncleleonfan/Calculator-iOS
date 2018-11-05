@@ -40,32 +40,20 @@ class ViewController: UIViewController {
     
     //option + p = pai; option + v = square root
     @IBAction func performOperation(_ sender: UIButton) {
-        userIsInTheMiddleOfTyping = false
-        //if is a blank button, it will crash
-//        let mathematicalSymbol = sender.currentTitle!
-        if let mathematicalSymbol = sender.currentTitle {
-//            if mathematicalSymbol == "π" {
-//
-//            } else if {
-//
-//            }
-            switch mathematicalSymbol {
-            case "π":
-//                display!.text = String(Double.pi)
-                displayValue = Double.pi
-                break
-            case "√":
-//                let operand = Double(display!.text!)
-//                display!.text = String(sqrt(operand!))
-                displayValue = sqrt(displayValue)
-                break
-            default:
-                break
-            }
-        } else {
-            
+        if userIsInTheMiddleOfTyping {
+            brain.setOperand(displayValue)
+            userIsInTheMiddleOfTyping = false
         }
-        
+        if let mathmeticalSymbol = sender.currentTitle {
+            brain.performOperation(mathmeticalSymbol)
+        }
+        if let result = brain.result  {
+            displayValue = result
+        }
     }
+    
+    private var brain: CalculatorBrain = CalculatorBrain()
+    
+    
 }
 
